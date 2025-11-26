@@ -16,9 +16,16 @@ import { index as viewRoles } from '@/routes/roles';
 import { index as viewUsers } from '@/routes/users';
 import { index as viewActivity } from '@/routes/activities';
 import { edit as editGeneralSetting } from '@/routes/general-settings';
+import { index as viewAccountType } from '@/routes/accounting/types';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { LayoutGrid, Settings, Users, ClipboardPenLine } from 'lucide-vue-next';
+import {
+    LayoutGrid,
+    Settings,
+    Users,
+    ClipboardCheck,
+    ClipboardList
+} from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
@@ -33,6 +40,19 @@ const mainNavItems: NavItem[] = [
         href: viewUsers(),
         permissions: ['view users'],
         icon: Users,
+    },
+    {
+        title: 'Accounting',
+        href: '',
+        permissions: ['view types'],
+        icon: ClipboardList,
+        items: [
+            {
+                title: 'Types',
+                href: viewAccountType(),
+                permission: 'view types'
+            }
+        ]
     },
     {
         title: 'System Settings',
@@ -56,7 +76,7 @@ const mainNavItems: NavItem[] = [
         title: 'System Activity Logs',
         href: viewActivity(),
         permissions: ['view activity', 'delete activity', 'export activity'],
-        icon: ClipboardPenLine,
+        icon: ClipboardCheck,
     },
 ];
 </script>

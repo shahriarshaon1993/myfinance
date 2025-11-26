@@ -21,7 +21,7 @@ beforeEach(function (): void {
 });
 
 it('can displayed the users with paginate currently', function (): void {
-    $users = User::factory()->count(3)->create();
+    User::factory()->count(3)->create();
 
     $response = $this->get(route('users.index'));
 

@@ -29,5 +29,6 @@ Route::middleware(['auth', 'active', 'verified'])->group(function (): void {
     Route::resource('activities', ActivityLogController::class);
 });
 
+require __DIR__.'/accounting.php';
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

@@ -287,7 +287,7 @@ return [
         | indefinitely, set this to null.  Otherwise, set a number of seconds,
         | a \DateInterval, or a callable.
         |
-        | Allowable types: callable|\DateInterval|int|null
+        | Allowable type: callable|\DateInterval|int|null
         |
          */
         'default_ttl' => 10800,

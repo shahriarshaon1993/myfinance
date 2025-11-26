@@ -174,8 +174,6 @@ const selectAll = computed({
     set: (value) => toggleSelectAll(value),
 });
 
-const handleSubmit = () => openDetails.value = false;
-
 const viewDetails = (id: number) => {
     activity.value = props.logs.data.find(
         log => log.id === id
@@ -391,7 +389,7 @@ const clearActivityLogHistory = (): void => {
     </div>
 
     <!-- Show details sheet -->
-    <AppSheet v-model="openDetails" title="Activity details" @submit="handleSubmit">
+    <AppSheet v-model="openDetails" title="Activity details" max-width="5xl">
         <!-- Content -->
         <div class="mt-4">
             <div class="pb-2">

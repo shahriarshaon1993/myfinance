@@ -37,7 +37,7 @@
             /* Specify a set of entries that re-map imports to additional lookup locations. */ "@/*": ["./resources/js/*"],
         },
         // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
-        // "typeRoots": [],                                  /* Specify multiple folders that act like './node_modules/@types'. */
+        // "typeRoots": [],                                  /* Specify multiple folders that act like './node_modules/@type'. */
         "types": [
             "vite/client",
             "./resources/js/types"
@@ -104,7 +104,7 @@
         // "alwaysStrict": true,                             /* Ensure 'use strict' is always emitted. */
         // "noUnusedLocals": true,                           /* Enable error reporting when local variables aren't read. */
         // "noUnusedParameters": true,                       /* Raise an error when a function parameter isn't read. */
-        // "exactOptionalPropertyTypes": true,               /* Interpret optional property types as written, rather than adding 'undefined'. */
+        // "exactOptionalPropertyTypes": true,               /* Interpret optional property type as written, rather than adding 'undefined'. */
         // "noImplicitReturns": true,                        /* Enable error reporting for codepaths that do not explicitly return in a function. */
         // "noFallthroughCasesInSwitch": true,               /* Enable error reporting for fallthrough cases in switch statements. */
         // "noUncheckedIndexedAccess": true,                 /* Add 'undefined' to a type when accessed using an index. */
@@ -120,7 +120,7 @@
     "include": [
         "resources/js/**/*.ts",
         "resources/js/**/*.d.ts",
-        "resources/js/**/*.tsx", 
+        "resources/js/**/*.tsx",
         "resources/js/**/*.vue"
     ]
 }

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
+use App\Models\Module;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\PermissionRegistrar;
 
 final class ModuleAndPermissionsSeeder extends Seeder
@@ -37,16 +39,20 @@ final class ModuleAndPermissionsSeeder extends Seeder
                 'description' => 'Manage Activity Log.',
                 'permissions' => ['view activity', 'delete activity', 'export activity'],
             ],
+            'Account Type' => [
+                'description' => 'Manage Account Type.',
+                'permissions' => ['view types', 'create type', 'update type', 'delete type'],
+            ],
         ];
 
         foreach ($modules as $moduleName => $moduleData) {
-            $module = \App\Models\Module::create([
+            $module = Module::create([
                 'name' => $moduleName,
                 'description' => $moduleData['description'],
             ]);
 
             foreach ($moduleData['permissions'] as $permissionName) {
-                \Spatie\Permission\Models\Permission::create([
+                Permission::create([
                     'name' => $permissionName,
                     'module_id' => $module->id,
                 ]);

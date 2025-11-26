@@ -13,11 +13,12 @@ use App\DTOs\ClearHistoryLogDto;
 use App\DTOs\FilterDto;
 use App\Http\Requests\DeleteRequest;
 use App\Http\Requests\FilterRequest;
+use App\Models\Activity;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
-use Spatie\Activitylog\Models\Activity;
 
 final class ActivityLogController
 {
@@ -26,6 +27,8 @@ final class ActivityLogController
      */
     public function index(FilterRequest $request, GetActivityLogs $action): Response
     {
+        Gate::authorize('viewAny', Activity::class);
+
         $filters = FilterDto::from($request->validatedFilters());
 
         $data = $action->handle($filters);
@@ -41,6 +44,8 @@ final class ActivityLogController
      */
     public function destroy(Activity $activity, DeleteActivityLog $action): RedirectResponse
     {
+        Gate::authorize('delete', $activity);
+
         $action->handle($activity);
 
         return back()->with('success', 'Activity log deleted successfully.');
@@ -51,6 +56,8 @@ final class ActivityLogController
      */
     public function bulkDestroy(DeleteRequest $request, BulkDeleteActivity $action): RedirectResponse
     {
+        Gate::authorize('deleteAny', Activity::class);
+
         /** @var array{ids: int[]} $data */
         $data = $request->validated();
 
@@ -63,6 +70,8 @@ final class ActivityLogController
 
     public function clearHistory(Request $request, ClearHistoryActivityLog $action): RedirectResponse
     {
+        Gate::authorize('deleteAny', Activity::class);
+
         $request->validate([
             'range' => ['required', 'string', 'min:1', 'max:10'],
         ]);
