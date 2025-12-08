@@ -29,7 +29,7 @@ final class ActivityLogController
     {
         Gate::authorize('viewAny', Activity::class);
 
-        $filters = FilterDto::from($request->validatedFilters());
+        $filters = FilterDto::fromArray($request->validatedFilters());
 
         $data = $action->handle($filters);
 

@@ -15,19 +15,24 @@ final class GetTypes
     /**
      * handle getting roles with filters.
      *
-     * @return array{filters: FilterDto, types: AnonymousResourceCollection}
+     * @return array{
+     *     filters: array{search: string|null, sort_field: string, sort_order: string, per_page: int},
+     *     types: AnonymousResourceCollection
+     * }
      */
-    public function handle(FilterDto $filters): array
+    public function handle(FilterDto $filterDto): array
     {
+        $filters = $filterDto->toArray();
+
         $types = AccountType::query()
-            ->when(isset($filters->search), function (Builder $q) use ($filters): void {
+            ->when(isset($filters['search']), function (Builder $q) use ($filters): void {
                 $q->where(function (Builder $query) use ($filters): void {
-                    $query->where('code', 'LIKE', "%{$filters->search}%")
-                        ->orWhere('name', 'LIKE', "%{$filters->search}%");
+                    $query->where('code', 'LIKE', "%{$filters['search']}%")
+                        ->orWhere('name', 'LIKE', "%{$filters['search']}%");
                 });
             })
-            ->orderBy($filters->sort_field ?? 'id', $filters->sort_order ?? 'asc')
-            ->paginate($filters->per_page)
+            ->orderBy($filters['sort_field'], $filters['sort_order'])
+            ->paginate($filters['per_page'])
             ->withQueryString();
 
         return [

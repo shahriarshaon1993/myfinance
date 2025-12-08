@@ -37,7 +37,7 @@ final class RoleController
     {
         Gate::authorize('viewAny', Role::class);
 
-        $filters = FilterDto::from($request->validatedFilters());
+        $filters = FilterDto::fromArray($request->validatedFilters());
 
         $data = $action->handle($filters);
 

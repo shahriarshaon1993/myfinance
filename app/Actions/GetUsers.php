@@ -15,19 +15,24 @@ final class GetUsers
     /**
      * handle getting users with filters.
      *
-     * @return array{filters: FilterDto, users: AnonymousResourceCollection}
+     * @return array{
+     *     filters: array{search: string|null, sort_field: string, sort_order: string, per_page: int},
+     *     users: AnonymousResourceCollection
+     * }
      */
-    public function handle(FilterDto $filters): array
+    public function handle(FilterDto $filterDto): array
     {
+        $filters = $filterDto->toArray();
+
         $users = User::query()
             ->with(['media'])
-            ->when(isset($filters->search), function (Builder $q) use ($filters): void {
-                $q->where('name', 'LIKE', '%'.$filters->search.'%')
-                    ->orWhere('email', 'LIKE', '%'.$filters->search.'%')
-                    ->orWhere('phone', 'LIKE', '%'.$filters->search.'%');
+            ->when(isset($filters['search']), function (Builder $q) use ($filters): void {
+                $q->where('name', 'LIKE', '%'.$filters['search'].'%')
+                    ->orWhere('email', 'LIKE', '%'.$filters['search'].'%')
+                    ->orWhere('phone', 'LIKE', '%'.$filters['search'].'%');
             })
-            ->orderBy($filters->sort_field ?? 'id', $filters->sort_order ?? 'asc')
-            ->paginate($filters->per_page)
+            ->orderBy($filters['sort_field'], $filters['sort_order'])
+            ->paginate($filters['per_page'])
             ->withQueryString();
 
         return [

@@ -31,7 +31,7 @@ final class AccountTypeController
     {
         Gate::authorize('viewAny', AccountType::class);
 
-        $filters = FilterDto::from($request->validatedFilters());
+        $filters = FilterDto::fromArray($request->validatedFilters());
 
         $data = $action->handle($filters);
 

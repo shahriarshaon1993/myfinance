@@ -37,7 +37,7 @@ final class UserController
     {
         Gate::authorize('viewAny', User::class);
 
-        $filters = FilterDto::from($request->validatedFilters());
+        $filters = FilterDto::fromArray($request->validatedFilters());
 
         $data = $action->handle($filters);
 

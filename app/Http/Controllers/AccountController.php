@@ -23,7 +23,7 @@ final class AccountController
     {
         Gate::authorize('viewAny', Account::class);
 
-        $filters = FilterDto::from($request->validatedFilters());
+        $filters = FilterDto::fromArray($request->validatedFilters());
 
         $data = $action->handle($filters);
 
