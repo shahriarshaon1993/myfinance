@@ -9,9 +9,9 @@ use App\Actions\CreateType;
 use App\Actions\DeleteType;
 use App\Actions\GetTypes;
 use App\Actions\UpdateType;
+use App\DTOs\AccountTypeDto;
 use App\DTOs\BulkDestroyDto;
 use App\DTOs\FilterDto;
-use App\DTOs\TypeDto;
 use App\Http\Requests\Accounting\StoreAccountTypeRequest;
 use App\Http\Requests\Accounting\UpdateAccountTypeRequest;
 use App\Http\Requests\DeleteRequest;
@@ -48,10 +48,13 @@ final class AccountTypeController
     {
         Gate::authorize('create', AccountType::class);
 
-        $action->handle(TypeDto::from($request));
+        /** @var array{code: string, name: string, normal_balance_debit: bool, is_active: string, description: string|null} $data */
+        $data = $request->validated();
+
+        $action->handle(AccountTypeDto::fromArray($data));
 
         return to_route('accounting.types.index')
-            ->with('success', 'User created successfully.');
+            ->with('success', 'Account type created successfully.');
     }
 
     /**
@@ -61,10 +64,13 @@ final class AccountTypeController
     {
         Gate::authorize('update', $type);
 
-        $action->handle(TypeDto::from($request), $type);
+        /** @var array{code: string, name: string, normal_balance_debit: bool, is_active: string, description: string|null} $data */
+        $data = $request->validated();
+
+        $action->handle(AccountTypeDto::fromArray($data), $type);
 
         return to_route('accounting.types.index')
-            ->with('success', 'User updated successfully.');
+            ->with('success', 'Account type updated successfully.');
     }
 
     /**
@@ -93,6 +99,6 @@ final class AccountTypeController
         $action->handle(BulkDestroyDto::from($data)->ids);
 
         return to_route('accounting.types.index')
-            ->with('success', 'Selected types deleted successfully.');
+            ->with('success', 'Selected account types deleted successfully.');
     }
 }

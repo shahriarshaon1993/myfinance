@@ -13,7 +13,7 @@ beforeEach(function (): void {
     actingAsAdmin();
 });
 
-it('can displayed the accounts with paginate currently', function () {
+it('can displayed the accounts with paginate currently', function (): void {
     $accounts = Account::factory()->count(3)->create();
 
     $response = $this->get(route('accounting.accounts.index'));
@@ -36,7 +36,7 @@ it('can displayed the account create page', function (): void {
     );
 });
 
-it('can delete an account', function () {
+it('can delete an account', function (): void {
     $account = Account::factory()->create();
 
     $response = $this->delete(route('accounting.types.destroy', $account->id));

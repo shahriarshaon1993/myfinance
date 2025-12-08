@@ -72,7 +72,7 @@ final class GetAccounts
             $items[$account['id']] = $account;
         }
 
-        foreach ($items as $id => &$node) {
+        foreach ($items as &$node) {
             if ($node['parent_id']) {
                 $items[$node['parent_id']]['children'][] = &$node;
             } else {
