@@ -8,16 +8,22 @@ export function useOptions() {
     const options = computed(() => page.props.options ?? {
         roles: [],
         modules: [],
+        accounts: [],
+        accountTypes: [],
         activeStatus: []
     });
 
     const roles = computed<OptionItem[]>(() => options.value.roles ?? []);
     const modules = computed<ModuleWithPermissions[]>(() => options.value.modules ?? []);
+    const accounts = computed<ModuleWithPermissions[]>(() => options.value.accounts ?? []);
+    const accountTypes = computed<SelectOption[]>(() => options.value.accountTypes ?? []);
     const activeStatus = computed<SelectOption[]>(() => options.value.activeStatus ?? []);
 
     return {
         roles,
         modules,
+        accounts,
+        accountTypes,
         activeStatus
     }
 }

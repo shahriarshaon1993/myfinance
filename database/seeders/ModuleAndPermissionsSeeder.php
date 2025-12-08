@@ -36,12 +36,16 @@ final class ModuleAndPermissionsSeeder extends Seeder
                 'permissions' => ['access settings'],
             ],
             'Activity Log' => [
-                'description' => 'Manage Activity Log.',
+                'description' => 'Manage Activity Log and their permissions.',
                 'permissions' => ['view activity', 'delete activity', 'export activity'],
             ],
             'Account Type' => [
-                'description' => 'Manage Account Type.',
+                'description' => 'Manage Account Type and their permissions.',
                 'permissions' => ['view types', 'create type', 'update type', 'delete type'],
+            ],
+            'Account' => [
+                'description' => 'Manage Account and their permissions.',
+                'permissions' => ['view accounts', 'create account', 'update account', 'delete account'],
             ],
         ];
 

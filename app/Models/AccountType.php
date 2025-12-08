@@ -10,9 +10,12 @@ use Carbon\CarbonInterface;
 use Database\Factories\AccountTypeFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
+ * App\Models\AccountType
+ *
  * @property-read int $id
  * @property-read string $code
  * @property-read string $name
@@ -44,4 +47,12 @@ final class AccountType extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    /**
+     * @return HasMany<Account, $this>
+     */
+    public function accounts(): HasMany
+    {
+        return $this->hasMany(Account::class);
+    }
 }

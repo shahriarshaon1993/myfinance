@@ -17,6 +17,7 @@ import { index as viewUsers } from '@/routes/users';
 import { index as viewActivity } from '@/routes/activities';
 import { edit as editGeneralSetting } from '@/routes/general-settings';
 import { index as viewAccountType } from '@/routes/accounting/types';
+import { index as viewAccounts } from '@/routes/accounting/accounts';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
 import {
@@ -44,13 +45,18 @@ const mainNavItems: NavItem[] = [
     {
         title: 'Accounting',
         href: '',
-        permissions: ['view types'],
+        permissions: ['view types', 'view accounts'],
         icon: ClipboardList,
         items: [
             {
-                title: 'Types',
+                title: 'Account Types',
                 href: viewAccountType(),
                 permission: 'view types'
+            },
+            {
+                title: 'Chart of accounts',
+                href: viewAccounts(),
+                permission: 'view accounts'
             }
         ]
     },

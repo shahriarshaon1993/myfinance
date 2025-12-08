@@ -22,6 +22,7 @@ final class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             ModuleAndPermissionsSeeder::class,
             AccountTypeSeeder::class,
+            AccountSeeder::class,
         ]);
     }
 }

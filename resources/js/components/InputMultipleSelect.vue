@@ -20,13 +20,15 @@ interface Item {
     [key: string]: any;
 }
 
-const props = defineProps<{
+interface Props {
     items: Item[];
     selected: Array<number | string>;
     placeholder?: string;
     width?: string;
     label: string;
-}>();
+}
+
+const props = defineProps<Props>();
 
 const emit = defineEmits<{
     (e: 'update:selected', value: Array<number | string>): void;

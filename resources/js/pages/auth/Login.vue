@@ -50,7 +50,7 @@ defineProps<{
                         :tabindex="1"
                         autocomplete="email"
                         placeholder="email@example.com"
-                        default-value="admin@example.com"
+                        default-value="employee@example.com"
                     />
                     <InputError :message="errors.email" />
                 </div>

@@ -13,9 +13,7 @@ import { startCase } from 'lodash';
 import { toast } from 'vue-sonner';
 import { useOptions } from '@/composables/useOptions';
 
-const props = defineProps<{
-    role?: Role;
-}>();
+const props = defineProps<{ role?: Role; }>();
 
 const page = usePage<SharedData>();
 const { modules } = useOptions();

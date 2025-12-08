@@ -12,10 +12,12 @@ import TypeTable from '@/components/app/accounting/type/TypeTable.vue';
 import { ref } from 'vue';
 import TypeForm from '@/components/app/accounting/type/TypeForm.vue';
 
-const props = defineProps<{
+interface Props {
     types: AccountTypeResponse;
     filters: Filters;
-}>();
+}
+
+const props = defineProps<Props>();
 
 const { hasPermission } = useAuthorization();
 

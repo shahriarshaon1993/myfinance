@@ -10,11 +10,7 @@ import TablePagination from '@/components/app/TablePagination.vue';
 import Badge from '@/components/ui/badge/Badge.vue';
 import Button from '@/components/ui/button/Button.vue';
 import { Checkbox } from '@/components/ui/checkbox';
-import {
-    DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuSeparator,
-} from '@/components/ui/dropdown-menu';
+import { DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import {
     Table,
@@ -250,7 +246,7 @@ const selectAll = computed({
                             @sort="sort"
                         />
                         <SortTableHeader
-                            label="Active"
+                            label="Status"
                             sort-key="is_active"
                             :active-sort-key="filters.sort_field"
                             :sort-order="filters.sort_order"

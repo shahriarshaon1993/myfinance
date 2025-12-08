@@ -41,27 +41,19 @@ const { hasPermission, hasPermissions } = useAuthorization();
             >
                 <SidebarMenuItem>
                     <template v-if="item.items">
-                        <CollapsibleTrigger
-                            v-if="hasPermissions(item.permissions)"
-                            as-child
-                        >
+                        <CollapsibleTrigger v-if="hasPermissions(item.permissions)" as-child>
                             <SidebarMenuButton>
-                                <component v-if="item.icon" :is="item.icon" />
+                                <component v-if="item.icon" :is="item.icon" class="text-blue-400"/>
                                 <span class="font-medium">
                                     {{ item.title }}
                                 </span>
-                                <ChevronRight
-                                    class="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
-                                />
+                                <ChevronRight class="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                             </SidebarMenuButton>
                         </CollapsibleTrigger>
 
                         <CollapsibleContent>
                             <SidebarMenuSub>
-                                <SidebarMenuSubItem
-                                    v-for="subItem in item.items"
-                                    :key="subItem.title"
-                                >
+                                <SidebarMenuSubItem v-for="subItem in item.items" :key="subItem.title">
                                     <SidebarMenuSubButton
                                         v-if="hasPermission(subItem.permission)"
                                         :is-active="
@@ -88,7 +80,7 @@ const { hasPermission, hasPermissions } = useAuthorization();
                             as-child
                         >
                             <Link :href="item.href" class="font-medium">
-                                <component :is="item.icon" />
+                                <component :is="item.icon" class="text-blue-400"/>
                                 <span>{{ item.title }}</span>
                             </Link>
                         </SidebarMenuButton>

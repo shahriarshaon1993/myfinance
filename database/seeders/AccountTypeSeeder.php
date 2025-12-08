@@ -23,7 +23,7 @@ final class AccountTypeSeeder extends Seeder
         ];
 
         foreach ($types as $type) {
-            AccountType::create($type);
+            AccountType::updateOrCreate($type);
         }
     }
 }

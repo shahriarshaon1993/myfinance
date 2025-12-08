@@ -6,6 +6,8 @@ namespace App\Http\Middleware;
 
 use App\Enums\ActiveStatus;
 use App\Http\Resources\UserSharedResource;
+use App\Models\Account;
+use App\Models\AccountType;
 use App\Models\GeneralSetting;
 use App\Models\Module;
 use App\Models\Role;
@@ -56,7 +58,7 @@ final class HandleInertiaRequests extends Middleware
                 'author' => mb_trim($author ?? ''),
             ],
             'auth.user' => fn (): ?UserSharedResource => $request->user()
-                ? new UserSharedResource($request->user()->loadMissing(['media', 'roles', 'permissions']))
+                ? new UserSharedResource($request->user())
                 : null,
             'flash' => [
                 'message' => fn () => $request->session()->get('message'),
@@ -91,6 +93,17 @@ final class HandleInertiaRequests extends Middleware
                 ->get(['id', 'name', 'description']),
 
             'activeStatus' => ActiveStatus::asArray(),
+
+            'accountTypes' => AccountType::query()
+                ->where('is_active', ActiveStatus::Active->value)
+                ->orderBy('name')
+                ->get(['id', 'name']),
+
+            'accounts' => Account::query()
+                ->whereNull('parent_id')
+                ->where('is_active', ActiveStatus::Active->value)
+                ->orderBy('name')
+                ->get(['id', 'name']),
         ]);
     }
 }
