@@ -61,9 +61,7 @@ final class ActivityLogController
         /** @var array{ids: int[]} $data */
         $data = $request->validated();
 
-        $userIds = BulkDestroyDto::from($data);
-
-        $action->handle($userIds->ids);
+        $action->handle(BulkDestroyDto::fromArray($data));
 
         return back()->with('success', 'Selected activity logs deleted successfully.');
     }

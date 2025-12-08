@@ -118,9 +118,7 @@ final class RoleController
         /** @var array{ids: int[]} $data */
         $data = $request->validated();
 
-        $roleIds = BulkDestroyDto::from($data);
-
-        $action->handle($roleIds->ids);
+        $action->handle(BulkDestroyDto::fromArray($data));
 
         return to_route('roles.index')->with('success', 'Selected roles deleted successfully.');
     }

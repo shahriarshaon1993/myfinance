@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\DTOs\BulkDestroyDto;
 use App\Models\User;
 
 final class BulkDeleteUser
 {
-    /**
-     * @param  int[]  $userIds
-     */
-    public function handle(array $userIds): int
+    public function handle(BulkDestroyDto $bulkDestroyDto): int
     {
-        return User::destroy($userIds);
+        return User::destroy($bulkDestroyDto->toArray());
     }
 }

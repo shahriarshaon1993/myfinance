@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\DTOs\BulkDestroyDto;
 use Spatie\Activitylog\Models\Activity;
 
 final class BulkDeleteActivity
 {
-    /**
-     * @param  int[]  $activeIds
-     */
-    public function handle(array $activeIds): int
+    public function handle(BulkDestroyDto $bulkDestroyDto): int
     {
-        return Activity::destroy($activeIds);
+        return Activity::destroy($bulkDestroyDto->toArray());
     }
 }

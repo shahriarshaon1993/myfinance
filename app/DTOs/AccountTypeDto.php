@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\DTOs;
 
-final class AccountTypeDto
+final readonly class AccountTypeDto
 {
     public function __construct(
         public string $code,

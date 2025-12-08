@@ -18,10 +18,18 @@ final readonly class BulkDestroyDto
     /**
      * @param  array{ids: int[]}  $data
      */
-    public static function from(array $data): self
+    public static function fromArray(array $data): self
     {
         return new self(
             ids: $data['ids'],
         );
+    }
+
+    /**
+     * @return array<int>
+     */
+    public function toArray(): array
+    {
+        return $this->ids;
     }
 }

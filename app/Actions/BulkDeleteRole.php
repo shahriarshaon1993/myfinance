@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\DTOs\BulkDestroyDto;
 use App\Models\Role;
 
 final class BulkDeleteRole
 {
-    /**
-     * @param  int[]  $roleIds
-     */
-    public function handle(array $roleIds): int
+    public function handle(BulkDestroyDto $bulkDestroyDto): int
     {
-        return Role::destroy($roleIds);
+        return Role::destroy($bulkDestroyDto->toArray());
     }
 }

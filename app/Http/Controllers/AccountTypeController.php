@@ -96,7 +96,7 @@ final class AccountTypeController
         /** @var array{ids: int[]} $data */
         $data = $request->validated();
 
-        $action->handle(BulkDestroyDto::from($data)->ids);
+        $action->handle(BulkDestroyDto::fromArray($data));
 
         return to_route('accounting.types.index')
             ->with('success', 'Selected account types deleted successfully.');
