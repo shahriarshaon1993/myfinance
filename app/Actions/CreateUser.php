@@ -27,7 +27,7 @@ final class CreateUser
                 'name' => $userDto->name,
                 'email' => $userDto->email,
                 'phone' => $userDto->phone,
-                'is_active' => $userDto->is_active,
+                'is_active' => $userDto->isActive,
                 'password' => Hash::make($password),
             ]);
 
@@ -35,19 +35,28 @@ final class CreateUser
                 $user->addMedia($userDto->avatar, 'avatar');
             }
 
-            if ($userDto->roles !== null && $userDto->roles !== []) {
-                $roles = Role::find($userDto->roles);
-
-                $user->syncRoles($roles);
-            }
-
-            if ($userDto->permissions !== null && $userDto->permissions !== []) {
-                $permissions = Permission::find($userDto->permissions);
-
-                $user->syncPermissions($permissions);
-            }
+            $this->syncRoles($user, $userDto->roles);
+            $this->syncPermissions($user, $userDto->permissions);
 
             return $user;
         });
+    }
+
+    /**
+     * @param  array<int>  $roleIds
+     */
+    private function syncRoles(User $user, array $roleIds): void
+    {
+        $roles = Role::findMany($roleIds);
+        $user->syncRoles($roles);
+    }
+
+    /**
+     * @param  array<int>  $permissionIds
+     */
+    private function syncPermissions(User $user, array $permissionIds): void
+    {
+        $permissions = Permission::findMany($permissionIds);
+        $user->syncPermissions($permissions);
     }
 }

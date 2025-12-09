@@ -22,6 +22,7 @@ use App\Imports\UserImport;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -64,7 +65,10 @@ final class UserController
     {
         Gate::authorize('create', User::class);
 
-        $action->handle(UserDto::from($request));
+        /** @var array{name: string, email: string, phone: string, is_active: string, password: string|null, avatar: UploadedFile|null, avatar_removed: bool, roles: array<int>, permissions: array<int>} $data */
+        $data = $request->validated();
+
+        $action->handle(UserDto::fromArray($data));
 
         return to_route('users.index')
             ->with('success', 'User created successfully.');
@@ -91,7 +95,10 @@ final class UserController
     {
         Gate::authorize('update', $user);
 
-        $action->handle(UserDto::from($request), $user);
+        /** @var array{name: string, email: string, phone: string, is_active: string, password: string|null, avatar: UploadedFile|null, avatar_removed: bool, roles: array<int>, permissions: array<int>} $data */
+        $data = $request->validated();
+
+        $action->handle(UserDto::fromArray($data), $user);
 
         return to_route('users.index')
             ->with('success', 'User updated successfully.');

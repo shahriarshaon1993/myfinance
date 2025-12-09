@@ -13,9 +13,6 @@ use Illuminate\Support\Facades\Hash;
 
 final class UpdateUser
 {
-    /**
-     * Handle the action.
-     */
     public function handle(UserDto $userDto, User $user): User
     {
         return DB::transaction(function () use ($userDto, $user): User {
@@ -23,7 +20,7 @@ final class UpdateUser
                 'name' => $userDto->name,
                 'email' => $userDto->email,
                 'phone' => $userDto->phone,
-                'is_active' => $userDto->is_active,
+                'is_active' => $userDto->isActive,
             ];
 
             if (! in_array($userDto->password, [null, '', '0'], true)) {
@@ -32,35 +29,47 @@ final class UpdateUser
 
             $user->update($data);
 
-            if ($userDto->avatar_removed) {
-                $user->clearMedia('avatar');
-            }
+            $this->updateAvatar($user, $userDto);
 
-            if ($userDto->avatar instanceof \Illuminate\Http\UploadedFile) {
-                $user->clearMedia('avatar');
-
-                $user->addMedia($userDto->avatar, 'avatar');
-            }
-
-            if ($userDto->roles !== null) {
-                $roles = Role::find($userDto->roles);
-
-                $user->syncRoles($roles);
-            }
-
-            if ($userDto->permissions !== null) {
-                $permissions = Permission::find($userDto->permissions);
-
-                $user->syncPermissions($permissions);
-            }
+            $this->syncRoles($user, $userDto->roles);
+            $this->syncPermissions($user, $userDto->permissions);
 
             if ($user->is_active->value !== 'active') {
-                DB::table('sessions')
-                    ->where('user_id', $user->id)
-                    ->delete();
+                DB::table('sessions')->where('user_id', $user->id)->delete();
             }
 
             return $user;
         });
+    }
+
+    private function updateAvatar(User $user, UserDto $userDto): void
+    {
+        if ($userDto->avatarRemoved) {
+            $user->clearMedia('avatar');
+        }
+
+        if ($userDto->avatar instanceof \Illuminate\Http\UploadedFile) {
+            $user->clearMedia('avatar');
+
+            $user->addMedia($userDto->avatar, 'avatar');
+        }
+    }
+
+    /**
+     * @param  array<int>  $roleIds
+     */
+    private function syncRoles(User $user, array $roleIds = []): void
+    {
+        $roles = Role::findMany($roleIds);
+        $user->syncRoles($roles);
+    }
+
+    /**
+     * @param  array<int>  $permissionIds
+     */
+    private function syncPermissions(User $user, array $permissionIds = []): void
+    {
+        $permissions = Permission::findMany($permissionIds);
+        $user->syncPermissions($permissions);
     }
 }

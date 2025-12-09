@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\DTOs;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 
 final readonly class UserDto
@@ -17,37 +16,52 @@ final readonly class UserDto
         public string $name,
         public string $email,
         public string $phone,
-        public string $is_active,
+        public string $isActive,
 
         public ?string $password = null,
 
         public ?UploadedFile $avatar = null,
-        public bool $avatar_removed = false,
+        public bool $avatarRemoved = false,
 
-        public ?array $roles = null,
-        public ?array $permissions = null,
+        public array $roles = [],
+        public array $permissions = [],
     ) {
         //
     }
 
-    public static function from(Request $request): self
+    /**
+     * @param  array{name: string, email: string, phone: string, is_active: string, password: string|null, avatar: UploadedFile|null, avatar_removed: bool, roles: array<int>, permissions: array<int>}  $data
+     */
+    public static function fromArray(array $data): self
     {
-        /** @var array<int> $roles */
-        $roles = $request->array('roles');
-
-        /** @var array<int> $permissions */
-        $permissions = $request->array('permissions');
-
         return new self(
-            name: $request->string('name')->value(),
-            email: $request->string('email')->value(),
-            phone: $request->string('phone')->value(),
-            is_active: $request->string('is_active')->value(),
-            password: $request->string('password')->value(),
-            avatar: $request->file('avatar'),
-            avatar_removed: $request->boolean('avatar_removed'),
-            roles: $roles,
-            permissions: $permissions,
+            name: $data['name'],
+            email: $data['email'],
+            phone: $data['phone'],
+            isActive: $data['is_active'],
+            password: $data['password'],
+            avatar: $data['avatar'],
+            avatarRemoved: (bool) $data['avatar_removed'],
+            roles: $data['roles'],
+            permissions: $data['permissions'],
         );
+    }
+
+    /**
+     * @return array{name: string, email: string, phone: string, is_active: string, password: string|null, avatar: UploadedFile|null, avatar_removed: bool, roles: array<int>, permissions: array<int>}
+     */
+    public function toArray(): array
+    {
+        return [
+            'name' => $this->name,
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'is_active' => $this->isActive,
+            'password' => $this->password,
+            'avatar' => $this->avatar,
+            'avatar_removed' => $this->avatarRemoved,
+            'roles' => $this->roles,
+            'permissions' => $this->permissions,
+        ];
     }
 }

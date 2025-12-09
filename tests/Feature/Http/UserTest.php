@@ -97,6 +97,7 @@ it('create a new user with roles and permissions', function (): void {
         'is_active' => ActiveStatus::Active->value,
         'roles' => [$role->id],
         'permissions' => [$permission->id],
+        'avatar' => UploadedFile::fake()->image('avatar.jpg')->size(1000),
         'avatar_removed' => false,
     ];
 
@@ -130,6 +131,9 @@ it('updates an existing user with full data', function (): void {
         'is_active' => ActiveStatus::Active->value,
         'avatar' => UploadedFile::fake()->image('avatar.jpg')->size(1000),
         'avatar_removed' => false,
+        'password' => null,
+        'roles' => [],
+        'permissions' => [],
     ];
 
     $response = $this->patch(route('users.update', $user->id), $data);
@@ -152,6 +156,9 @@ it('uploads user avatar even if avatar removed is true', function (): void {
         'is_active' => ActiveStatus::Active->value,
         'avatar_removed' => true,
         'avatar' => UploadedFile::fake()->image('avatar.jpg')->size(1000),
+        'password' => null,
+        'roles' => [],
+        'permissions' => [],
     ];
 
     $response = $this->patch(route('users.update', $user->id), $data);
@@ -173,6 +180,10 @@ it('removes user avatar when avatar removed is true', function (): void {
         'phone' => $user->phone,
         'is_active' => ActiveStatus::Active->value,
         'avatar_removed' => true,
+        'avatar' => null,
+        'password' => null,
+        'roles' => [],
+        'permissions' => [],
     ];
 
     $response = $this->patch(route('users.update', $user->id), $data);
@@ -197,6 +208,8 @@ it('updates user with roles & permissions', function (): void {
         'roles' => [$role->id],
         'permissions' => [$permission->id],
         'avatar_removed' => false,
+        'avatar' => null,
+        'password' => null,
     ];
 
     $response = $this->put(route('users.update', $user->id), $data);
@@ -210,8 +223,6 @@ it('updates user with roles & permissions', function (): void {
 
 it('updates user with password', function (): void {
     $user = User::factory()->create();
-    $role = Role::factory()->create();
-    $permission = Permission::factory()->create();
 
     $data = [
         'name' => 'Up name',
@@ -220,6 +231,9 @@ it('updates user with password', function (): void {
         'is_active' => ActiveStatus::Active->value,
         'password' => 'password',
         'avatar_removed' => false,
+        'avatar' => null,
+        'roles' => [],
+        'permissions' => [],
     ];
 
     $response = $this->put(route('users.update', $user->id), $data);
@@ -249,6 +263,10 @@ it('deletes sessions if user is not active', function (): void {
         'phone' => $user->phone,
         'is_active' => ActiveStatus::Inactive->value,
         'avatar_removed' => false,
+        'avatar' => null,
+        'password' => null,
+        'roles' => [],
+        'permissions' => [],
     ];
 
     $response = $this->put(route('users.update', $user->id), $data);
