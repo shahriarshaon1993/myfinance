@@ -4,6 +4,15 @@ declare(strict_types=1);
 
 namespace App\DTOs;
 
+/**
+ * @phpstan-type AccountTypeData array{
+ *     code: string,
+ *     name: string,
+ *     normal_balance_debit: bool,
+ *     is_active: string,
+ *     description: string|null
+ * }
+ */
 final readonly class AccountTypeDto
 {
     public function __construct(
@@ -17,7 +26,7 @@ final readonly class AccountTypeDto
     }
 
     /**
-     * @param  array{code: string, name: string, normal_balance_debit: bool, is_active: string, description: string|null}  $data
+     * @param  AccountTypeData  $data
      */
     public static function fromArray(array $data): self
     {
@@ -31,7 +40,7 @@ final readonly class AccountTypeDto
     }
 
     /**
-     * @return array{code: string, name: string, normal_balance_debit: bool, is_active: string, description: string|null}
+     * @return AccountTypeData
      */
     public function toArray(): array
     {

@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace App\DTOs;
 
+/**
+ * @phpstan-type RoleData array{
+ *     name: string,
+ *     permissions: array<int>|null
+ * }
+ */
 final readonly class RoleDto
 {
     /**
@@ -17,7 +23,7 @@ final readonly class RoleDto
     }
 
     /**
-     * @param  array{name: string, permissions: array<int>|null}  $data
+     * @param  RoleData  $data
      */
     public static function fromArray(array $data): self
     {
@@ -28,7 +34,7 @@ final readonly class RoleDto
     }
 
     /**
-     * @return array{name: string, permissions: array<int>|null}
+     * @return RoleData
      */
     public function toArray(): array
     {

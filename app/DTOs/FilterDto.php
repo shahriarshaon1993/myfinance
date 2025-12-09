@@ -4,6 +4,14 @@ declare(strict_types=1);
 
 namespace App\DTOs;
 
+/**
+ * @phpstan-type FilterData array{
+ *     sort_field: string,
+ *     sort_order: string,
+ *     per_page: int,
+ *     search: string|null
+ * }
+ */
 final readonly class FilterDto
 {
     public function __construct(
@@ -16,7 +24,7 @@ final readonly class FilterDto
     }
 
     /**
-     * @param  array{sort_field: string, sort_order: string, per_page: int, search: string|null}  $data
+     * @param  FilterData  $data
      */
     public static function fromArray(array $data): self
     {
@@ -29,7 +37,7 @@ final readonly class FilterDto
     }
 
     /**
-     * @return array{search: string|null, sort_field: string, sort_order: string, per_page: int}
+     * @return FilterData
      */
     public function toArray(): array
     {

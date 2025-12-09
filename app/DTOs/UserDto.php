@@ -6,6 +6,19 @@ namespace App\DTOs;
 
 use Illuminate\Http\UploadedFile;
 
+/**
+ * @phpstan-type UserData array{
+ *     name: string,
+ *     email: string,
+ *     phone: string,
+ *     is_active: string,
+ *     password: string|null,
+ *     avatar: UploadedFile|null,
+ *     avatar_removed: bool,
+ *     roles: array<int>,
+ *     permissions: array<int>
+ * }
+ */
 final readonly class UserDto
 {
     /**
@@ -30,7 +43,7 @@ final readonly class UserDto
     }
 
     /**
-     * @param  array{name: string, email: string, phone: string, is_active: string, password: string|null, avatar: UploadedFile|null, avatar_removed: bool, roles: array<int>, permissions: array<int>}  $data
+     * @param  UserData  $data
      */
     public static function fromArray(array $data): self
     {
@@ -48,7 +61,7 @@ final readonly class UserDto
     }
 
     /**
-     * @return array{name: string, email: string, phone: string, is_active: string, password: string|null, avatar: UploadedFile|null, avatar_removed: bool, roles: array<int>, permissions: array<int>}
+     * @return UserData
      */
     public function toArray(): array
     {

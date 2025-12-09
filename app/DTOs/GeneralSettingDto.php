@@ -6,6 +6,15 @@ namespace App\DTOs;
 
 use Illuminate\Http\UploadedFile;
 
+/**
+ * @phpstan-type GeneralSettingData array{
+ *     site_title: string,
+ *     date_format: string,
+ *     logo_removed: bool,
+ *     developed_by: string|null,
+ *     site_logo: UploadedFile|null
+ * }
+ */
 final readonly class GeneralSettingDto
 {
     public function __construct(
@@ -20,7 +29,7 @@ final readonly class GeneralSettingDto
     }
 
     /**
-     * @param  array{site_title: string, date_format: string, logo_removed: bool, developed_by: string|null, site_logo: UploadedFile|null}  $data
+     * @param  GeneralSettingData  $data
      */
     public static function formArray(array $data): self
     {
@@ -34,7 +43,7 @@ final readonly class GeneralSettingDto
     }
 
     /**
-     * @return array{site_title: string, date_format: string, developed_by: string|null, site_logo: UploadedFile|null, logo_removed: bool}
+     * @return GeneralSettingData
      */
     public function toArray(): array
     {
