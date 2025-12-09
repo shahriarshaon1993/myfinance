@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\DTOs;
 
-use Illuminate\Http\Request;
-
 final readonly class RoleDto
 {
     /**
@@ -18,14 +16,25 @@ final readonly class RoleDto
         //
     }
 
-    public static function from(Request $request): self
+    /**
+     * @param  array{name: string, permissions: array<int>|null}  $data
+     */
+    public static function fromArray(array $data): self
     {
-        /** @var array<int> $permissions */
-        $permissions = $request->array('permissions');
-
         return new self(
-            name: $request->string('name')->value(),
-            permissions: $permissions
+            name: $data['name'],
+            permissions: $data['permissions'],
         );
+    }
+
+    /**
+     * @return array{name: string, permissions: array<int>|null}
+     */
+    public function toArray(): array
+    {
+        return [
+            'name' => $this->name,
+            'permissions' => $this->permissions,
+        ];
     }
 }

@@ -32,6 +32,7 @@ it('edit general setting if none exists', function (): void {
         'site_title' => 'Dashboard',
         'date_format' => 'd M Y',
         'developed_by' => 'Me, Shaon',
+        'logo_removed' => false,
         'site_logo' => UploadedFile::fake()
             ->image('site_logo.jpg')->size(1000),
     ]);
@@ -49,6 +50,8 @@ it('updates general setting if already exists', function (): void {
         'site_title' => 'MyApp',
         'date_format' => $setting->date_format,
         'developed_by' => $setting->developed_by,
+        'logo_removed' => false,
+        'site_logo' => null,
     ]);
 
     $response->assertStatus(302);
@@ -58,7 +61,7 @@ it('updates general setting if already exists', function (): void {
     ]);
 });
 
-it('site logo remove when logo remove is false', function (): void {
+it('site logo remove when logo remove is true', function (): void {
     GeneralSetting::factory()->create();
 
     $response = $this->patch(route('general-settings.edit'), [
@@ -66,6 +69,7 @@ it('site logo remove when logo remove is false', function (): void {
         'date_format' => 'd M Y',
         'developed_by' => 'Me, Shaon',
         'logo_removed' => true,
+        'site_logo' => null,
     ]);
 
     $response->assertStatus(302);

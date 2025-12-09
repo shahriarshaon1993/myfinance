@@ -64,7 +64,10 @@ final class RoleController
     {
         Gate::authorize('create', Role::class);
 
-        $action->handle(RoleDto::from($request));
+        /** @var array{name: string, permissions: array<int>|null} $data */
+        $data = $request->validated();
+
+        $action->handle(RoleDto::fromArray($data));
 
         return to_route('roles.index')
             ->with('success', 'Role created successfully.');
@@ -91,7 +94,10 @@ final class RoleController
     {
         Gate::authorize('update', Role::class);
 
-        $action->handle(RoleDto::from($request), $role);
+        /** @var array{name: string, permissions: array<int>|null} $data */
+        $data = $request->validated();
+
+        $action->handle(RoleDto::fromArray($data), $role);
 
         return to_route('roles.index')->with('success', 'Role updated successfully.');
     }

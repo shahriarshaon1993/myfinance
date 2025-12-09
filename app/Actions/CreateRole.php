@@ -14,13 +14,11 @@ final class CreateRole
     public function handle(RoleDto $roleDto): SpatieRole
     {
         return DB::transaction(function () use ($roleDto): SpatieRole {
-            $role = Role::create([
-                'name' => $roleDto->name,
-            ]);
+            $payload = $roleDto->toArray();
 
-            if ($roleDto->permissions !== null && $roleDto->permissions !== []) {
-                $role->permissions()->sync($roleDto->permissions);
-            }
+            $role = Role::create(['name' => $payload['name']]);
+
+            $role->permissions()->sync($payload['permissions'] ?? []);
 
             return $role;
         });

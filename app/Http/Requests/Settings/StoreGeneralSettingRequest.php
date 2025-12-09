@@ -19,9 +19,9 @@ final class StoreGeneralSettingRequest extends FormRequest
         return [
             'site_title' => ['required', 'string', 'min:2', 'max:191'],
             'date_format' => ['nullable', 'string', 'min:2', 'max:191'],
+            'logo_removed' => ['boolean'],
             'developed_by' => ['nullable', 'string', 'min:2', 'max:191'],
             'site_logo' => ['nullable', 'image', 'max:2024'],
-            'logo_removed' => ['boolean'],
         ];
     }
 }

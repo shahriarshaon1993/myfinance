@@ -16,13 +16,11 @@ final class UpdateRole
     public function handle(RoleDto $roleDto, Role $role): Role
     {
         return DB::transaction(function () use ($roleDto, $role): Role {
-            $role->update([
-                'name' => $roleDto->name,
-            ]);
+            $payload = $roleDto->toArray();
 
-            if ($roleDto->permissions !== null && $roleDto->permissions !== []) {
-                $role->permissions()->sync($roleDto->permissions);
-            }
+            $role->update(['name' => $payload['name']]);
+
+            $role->permissions()->sync($payload['permissions'] ?? []);
 
             return $role;
         });
