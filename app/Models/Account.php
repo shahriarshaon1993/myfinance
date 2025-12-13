@@ -76,7 +76,7 @@ final class Account extends Model
      */
     public function type(): BelongsTo
     {
-        return $this->belongsTo(AccountType::class);
+        return $this->belongsTo(AccountType::class, 'account_type_id');
     }
 
     /**
