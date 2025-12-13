@@ -24,10 +24,10 @@ final class AccountResource extends JsonResource
             'id' => $this->id,
             'code' => $this->code,
             'name' => $this->name,
-            'type' => [
+            'type' => $this->type ? [
                 'id' => $this->type->id,
                 'name' => $this->type->name,
-            ],
+            ] : null,
             'parent' => $this->parent ? [
                 'id' => $this->parent->id,
                 'name' => $this->parent->name,

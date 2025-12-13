@@ -8,7 +8,7 @@ use App\Models\Module;
 it('module resource transforms correctly', function (): void {
     $module = Module::factory()->create(['name' => 'Test Module']);
 
-    $result = (new ModuleResource($module))->toArray(request());
+    $result = new ModuleResource($module)->toArray(request());
 
     expect($result)
         ->toBeArray()

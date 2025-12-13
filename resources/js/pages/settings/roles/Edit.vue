@@ -4,7 +4,7 @@ import RoleForm from '@/components/app/role/RoleForm.vue';
 import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { edit, index } from '@/routes/roles';
-import { type BreadcrumbItem, ModuleWithPermissions } from '@/types';
+import { type BreadcrumbItem } from '@/types';
 import { Role } from '@/types/roles';
 import { Head } from '@inertiajs/vue3';
 

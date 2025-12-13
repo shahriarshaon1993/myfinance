@@ -97,13 +97,21 @@ final class HandleInertiaRequests extends Middleware
             'accountTypes' => AccountType::query()
                 ->where('is_active', ActiveStatus::Active->value)
                 ->orderBy('name')
-                ->get(['id', 'name']),
+                ->get(['id', 'name'])
+                ->map(fn (AccountType $accountType): array => [
+                    'value' => $accountType->id,
+                    'label' => $accountType->name,
+                ]),
 
             'accounts' => Account::query()
-                ->whereNull('parent_id')
+                ->where('is_summary', true)
                 ->where('is_active', ActiveStatus::Active->value)
                 ->orderBy('name')
-                ->get(['id', 'name']),
+                ->get(['id', 'name', 'code'])
+                ->map(fn (Account $account): array => [
+                    'value' => $account->id,
+                    'label' => "{$account->code} - {$account->name}",
+                ]),
         ]);
     }
 }

@@ -7,7 +7,7 @@ namespace App\Actions;
 use App\DTOs\AccountTypeDto;
 use App\Models\AccountType;
 
-final class UpdateType
+final class UpdateAccountType
 {
     public function handle(AccountTypeDto $typeDto, AccountType $type): AccountType
     {

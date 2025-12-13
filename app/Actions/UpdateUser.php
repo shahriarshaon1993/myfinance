@@ -16,23 +16,25 @@ final class UpdateUser
     public function handle(UserDto $userDto, User $user): User
     {
         return DB::transaction(function () use ($userDto, $user): User {
+            $payload = $userDto->toArray();
+
             $data = [
-                'name' => $userDto->name,
-                'email' => $userDto->email,
-                'phone' => $userDto->phone,
-                'is_active' => $userDto->isActive,
+                'name' => $payload['name'],
+                'email' => $payload['email'],
+                'phone' => $payload['phone'],
+                'is_active' => $payload['is_active'],
             ];
 
-            if (! in_array($userDto->password, [null, '', '0'], true)) {
-                $data['password'] = Hash::make($userDto->password);
+            if (! in_array($payload['password'], [null, '', '0'], true)) {
+                $data['password'] = Hash::make($payload['password']);
             }
 
             $user->update($data);
 
             $this->updateAvatar($user, $userDto);
 
-            $this->syncRoles($user, $userDto->roles);
-            $this->syncPermissions($user, $userDto->permissions);
+            $this->syncRoles($user, $payload['roles']);
+            $this->syncPermissions($user, $payload['permissions']);
 
             if ($user->is_active->value !== 'active') {
                 DB::table('sessions')->where('user_id', $user->id)->delete();

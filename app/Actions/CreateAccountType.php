@@ -7,7 +7,7 @@ namespace App\Actions;
 use App\DTOs\AccountTypeDto;
 use App\Models\AccountType;
 
-final class CreateType
+final class CreateAccountType
 {
     public function handle(AccountTypeDto $type): AccountType
     {

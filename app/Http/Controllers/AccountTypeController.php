@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Actions\BulkDeleteType;
-use App\Actions\CreateType;
-use App\Actions\DeleteType;
-use App\Actions\GetTypes;
-use App\Actions\UpdateType;
+use App\Actions\BulkDeleteAccountType;
+use App\Actions\CreateAccountType;
+use App\Actions\DeleteAccountType;
+use App\Actions\GetAccountTypes;
+use App\Actions\UpdateAccountType;
 use App\DTOs\AccountTypeDto;
 use App\DTOs\BulkDestroyDto;
 use App\DTOs\FilterDto;
@@ -27,7 +27,7 @@ final class AccountTypeController
     /**
      * Display a listing of the resource.
      */
-    public function index(FilterRequest $request, GetTypes $action): Response
+    public function index(FilterRequest $request, GetAccountTypes $action): Response
     {
         Gate::authorize('viewAny', AccountType::class);
 
@@ -44,7 +44,7 @@ final class AccountTypeController
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreAccountTypeRequest $request, CreateType $action): RedirectResponse
+    public function store(StoreAccountTypeRequest $request, CreateAccountType $action): RedirectResponse
     {
         Gate::authorize('create', AccountType::class);
 
@@ -60,7 +60,7 @@ final class AccountTypeController
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAccountTypeRequest $request, AccountType $type, UpdateType $action): RedirectResponse
+    public function update(UpdateAccountTypeRequest $request, AccountType $type, UpdateAccountType $action): RedirectResponse
     {
         Gate::authorize('update', $type);
 
@@ -76,7 +76,7 @@ final class AccountTypeController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(AccountType $type, DeleteType $action): RedirectResponse
+    public function destroy(AccountType $type, DeleteAccountType $action): RedirectResponse
     {
         Gate::authorize('delete', $type);
 
@@ -89,7 +89,7 @@ final class AccountTypeController
     /**
      * Remove multiple resources from storage.
      */
-    public function bulkDestroy(DeleteRequest $request, BulkDeleteType $action): RedirectResponse
+    public function bulkDestroy(DeleteRequest $request, BulkDeleteAccountType $action): RedirectResponse
     {
         Gate::authorize('deleteAny', AccountType::class);
 

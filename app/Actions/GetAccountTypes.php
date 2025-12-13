@@ -10,7 +10,7 @@ use App\Models\AccountType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
-final class GetTypes
+final class GetAccountTypes
 {
     /**
      * handle getting roles with filters.

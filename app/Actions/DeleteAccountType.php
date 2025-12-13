@@ -6,7 +6,7 @@ namespace App\Actions;
 
 use App\Models\AccountType;
 
-final class DeleteType
+final class DeleteAccountType
 {
     public function handle(AccountType $type): ?bool
     {

@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
+use App\Models\Account;
 use App\Models\AccountType;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-it('to array account type', function (): void {
-    $type = AccountType::factory()->create()->fresh();
+it('to array account type model', function (): void {
+    $accountType = AccountType::factory()->create()->fresh();
 
-    expect(array_keys($type->toArray()))
+    expect(array_keys($accountType->toArray()))
         ->toEqual([
             'id',
             'code',
@@ -19,4 +21,13 @@ it('to array account type', function (): void {
             'created_at',
             'updated_at',
         ]);
+});
+
+it('can has many accounts type', function (): void {
+    $account = AccountType::factory()->create()->fresh();
+
+    $relation = $account->accounts();
+
+    expect($relation)->toBeInstanceOf(HasMany::class);
+    expect($relation->getRelated())->toBeInstanceOf(Account::class);
 });

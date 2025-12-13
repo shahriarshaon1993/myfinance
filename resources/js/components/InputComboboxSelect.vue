@@ -29,15 +29,16 @@ interface Props {
     width?: string;
     options: Option[];
     placeholder?: string;
-    modelValue: string | null;
+    modelValue: any;
 }
 
 const props = defineProps<Props>();
 
 const emit = defineEmits(["update:modelValue"]);
 
-const comboboxWidth = ref('300px');
 const open = ref(false);
+const comboboxWidth = ref('300px');
+const triggerRef = ref<HTMLElement | null>(null);
 
 watch(open, async (val) => {
     if (val && triggerRef.value) {

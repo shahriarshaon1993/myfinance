@@ -14,29 +14,28 @@ use Illuminate\Support\Facades\Hash;
 
 final class CreateUser
 {
-    /**
-     * Handle the action.
-     */
     public function handle(UserDto $userDto): User
     {
         return DB::transaction(function () use ($userDto): User {
+            $payload = $userDto->toArray();
+
             /** @var string $password */
-            $password = $userDto->password;
+            $password = $payload['password'];
 
             $user = User::create([
-                'name' => $userDto->name,
-                'email' => $userDto->email,
-                'phone' => $userDto->phone,
-                'is_active' => $userDto->isActive,
+                'name' => $payload['name'],
+                'email' => $payload['email'],
+                'phone' => $payload['phone'],
+                'is_active' => $payload['is_active'],
                 'password' => Hash::make($password),
             ]);
 
-            if ($userDto->avatar instanceof UploadedFile) {
-                $user->addMedia($userDto->avatar, 'avatar');
+            if ($payload['avatar'] instanceof UploadedFile) {
+                $user->addMedia($payload['avatar'], 'avatar');
             }
 
-            $this->syncRoles($user, $userDto->roles);
-            $this->syncPermissions($user, $userDto->permissions);
+            $this->syncRoles($user, $payload['roles']);
+            $this->syncPermissions($user, $payload['permissions']);
 
             return $user;
         });

@@ -88,7 +88,7 @@ const emitAddChild = () => emit("add-child", props.node);
         </div>
 
         <!-- Children -->
-        <transition name="slide-fade">
+        <Transition>
             <ul v-if="open && node.children?.length">
                 <TreeNode
                     v-for="child in node.children"
@@ -98,25 +98,9 @@ const emitAddChild = () => emit("add-child", props.node);
                     @delete="$emit('delete', $event)"
                 />
             </ul>
-        </transition>
+        </Transition>
     </li>
 
     <!-- Confirmation Dialog -->
     <DeleteButton v-model="isConfirmOpen" :is-processing="isDeleteLoading" @on-destroy="emitDelete" />
 </template>
-
-<style scoped>
-.slide-fade-enter-active {
-    transition: all 0.1s ease-out;
-}
-
-.slide-fade-leave-active {
-    transition: all 0.1s cubic-bezier(1, 0.5, 0.8, 1);
-}
-
-.slide-fade-enter-from,
-.slide-fade-leave-to {
-    transform: translateX(20px);
-    opacity: 0;
-}
-</style>

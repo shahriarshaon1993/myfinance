@@ -22,7 +22,6 @@ const { hasPermission } = useAuthorization();
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Accounts', href: index().url }];
 
-const createAccount = () => {}
 const editAccount = (node: any) => {console.log(node)};
 
 const deleteAccount = (id: number) => {

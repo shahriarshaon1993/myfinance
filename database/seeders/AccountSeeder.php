@@ -26,6 +26,7 @@ final class AccountSeeder extends Seeder
             'code' => '1000',
             'name' => 'Assets',
             'account_type_id' => $typeAsset,
+            'opening_balance' => 0,
             'is_summary' => true,
         ]);
 
@@ -34,6 +35,7 @@ final class AccountSeeder extends Seeder
             'name' => 'Cash & Cash Equivalents',
             'account_type_id' => $typeAsset,
             'parent_id' => $asset->id,
+            'opening_balance' => 0,
             'is_summary' => true,
         ]);
 
@@ -66,6 +68,7 @@ final class AccountSeeder extends Seeder
             'code' => '2000',
             'name' => 'Liabilities',
             'account_type_id' => $typeLiability,
+            'opening_balance' => 0,
             'is_summary' => true,
         ]);
 
@@ -82,6 +85,7 @@ final class AccountSeeder extends Seeder
             'code' => '3000',
             'name' => 'Owner\'s Equity',
             'account_type_id' => $typeEquity,
+            'opening_balance' => 0,
             'is_summary' => true,
         ]);
 
@@ -98,6 +102,7 @@ final class AccountSeeder extends Seeder
             'code' => '4000',
             'name' => 'Income',
             'account_type_id' => $typeIncome,
+            'opening_balance' => 0,
             'is_summary' => true,
         ]);
 
@@ -114,6 +119,7 @@ final class AccountSeeder extends Seeder
             'code' => '5000',
             'name' => 'Expenses',
             'account_type_id' => $typeExpense,
+            'opening_balance' => 0,
             'is_summary' => true,
         ]);
 

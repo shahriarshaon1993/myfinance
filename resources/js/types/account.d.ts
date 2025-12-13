@@ -13,12 +13,12 @@ interface AccountNode {
 export interface AccountForm {
     code: string;
     name: string;
-    account_type_id: number | null;
-    parent_id: number | null;
-    is_summary: boolean | null;
-    description: string | null;
-    opening_balance: string | null;
-    opening_balance_type: string | null;
-    opening_balance_date: string | null;
+    account_type_id: number|null;
+    parent_id: number|null;
+    is_summary: boolean;
+    description: string;
+    opening_balance: number;
+    opening_balance_type: string;
+    opening_balance_date: string|null;
     is_active: ActiveStatus;
 }

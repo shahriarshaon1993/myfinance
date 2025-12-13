@@ -26,7 +26,7 @@ return new class extends Migration
             $table->longText('description')->nullable();
 
             $table->decimal('opening_balance', 20, 6)->default(0);
-            $table->enum('opening_balance_type', ['D', 'C'])->default('D')->comment('D = Debit, C = Credit');
+            $table->enum('opening_balance_type', ['D', 'C'])->nullable()->comment('D = Debit, C = Credit');
             $table->date('opening_balance_date')->nullable();
 
             $table->string('currency', 3)->default('BDT');

@@ -7,7 +7,7 @@ namespace App\Actions;
 use App\DTOs\BulkDestroyDto;
 use App\Models\AccountType;
 
-final class BulkDeleteType
+final class BulkDeleteAccountType
 {
     public function handle(BulkDestroyDto $bulkDestroyDto): int
     {
